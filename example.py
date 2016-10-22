@@ -19,8 +19,8 @@ def mapper(key, value):
 
     doc_bin_arr = [0] * N
     for num_str in doc_arry[1:]:
-    	num_int = int(num_str)
-    	doc_bin_arr[num_int] = 1
+        num_int = int(num_str)
+        doc_bin_arr[num_int] = 1
 
     # do 1024 minhash
     random.seed("weareawesome")
@@ -28,25 +28,25 @@ def mapper(key, value):
     minhash_arr = []
 
     for i in xrange(0,NUM_HASHES):
-    	a = random.randint(0, 1000000)
-    	b = random.randint(0, 1000000)
+        a = random.randint(0, 1000000)
+        b = random.randint(0, 1000000)
 
-    	# print "new hash"
-    	min_so_far = N
-    	for row in xrange(0, N):
-    		hashed = ((a * row + b) % PRIME) % N 
-    		# print "hashed", hashed
+        # print "new hash"
+        min_so_far = N
+        for row in xrange(0, N):
+            hashed = ((a * row + b) % PRIME) % N
+            # print "hashed", hashed
 
-    		if doc_bin_arr[row] == 1:
-    			# print hashed
-    			min_so_far = min(hashed, min_so_far)
+            if doc_bin_arr[row] == 1:
+                # print hashed
+                min_so_far = min(hashed, min_so_far)
 
-    	minhash_arr.append(min_so_far)
+        minhash_arr.append(min_so_far)
 
     # output r slices of the array
     # print minhash_arr
     for i in xrange(0, NUM_HASHES, R_WAY):
-    	yield str(minhash_arr[i: i + R_WAY]), doc_name_int
+        yield str(minhash_arr[i: i + R_WAY]), doc_name_int
 
 
 
@@ -57,21 +57,6 @@ def reducer(key, values):
     values.sort()
 
     for idx, doc1 in enumerate(values):
-    	for doc2 in values[idx + 1:]:
-    		print "answer: ", doc1, doc2
-    		yield doc1, doc2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        for doc2 in values[idx + 1:]:
+            print "answer: ", doc1, doc2
+            yield doc1, doc2
